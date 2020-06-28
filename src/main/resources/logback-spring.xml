@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <springProperty scope="context" name="phase" source="spring.profiles.active" />
+  <springProperty scope="context" name="server" source="spring.application.name" />
+
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="log/console.xml" />
+  <include resource="log/file.xml" />
+
+  <springProfile name="!live">
+    <logger name="com.example.demo" level="DEBUG"/>
+  </springProfile>
+
+  <root level="info">
+    <springProfile name="console">
+      <appender-ref ref="CONSOLE" />
+    </springProfile>
+    <springProfile name="file">
+      <appender-ref ref="FILE" />
+    </springProfile>
+  </root>
+</configuration>

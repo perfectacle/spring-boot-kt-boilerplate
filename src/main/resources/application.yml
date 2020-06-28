@@ -1,0 +1,26 @@
+logging:
+  file:
+    path: ./log/server
+  level:
+    root: info
+spring:
+  application:
+    name: demo
+  output:
+    ansi:
+      enabled: ALWAYS
+---
+spring:
+  profiles: local
+  profiles.include: console
+---
+spring:
+  profiles: dev
+  profiles.include: file
+---
+spring:
+  profiles: live
+  profiles.include: file
+logging:
+  level:
+    root: error

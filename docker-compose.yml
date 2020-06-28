@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  demo:
+    image: com.example/demo:0.0.1-SNAPSHOT
+    container_name: demo
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+      JAVA_OPTS: "-XX:+UseG1GC -verbose:gc -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -XX:+PrintGCCause -Xloggc:/workspace/log/gc/%t.log -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=1M -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/workspace/log/heap/dump.hprof"
+    volumes:
+      - ./log/app/server:/workspace/log/server
+      - ./log/app/gc:/workspace/log/gc
+      - ./log/app/heap:/workspace/log/heap
+    restart: on-failure
